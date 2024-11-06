@@ -1,0 +1,13 @@
+#!/bin/bash
+mkdir -p ~/FileManagement/{Images,Documents,Audio,Videos,Others}
+for file in ~/Downloads/*; do
+  if [ -f "$file" ]; then
+    case "$(file --mime-type -b "$file")" in
+      image/*) mv "$file" ~/FileManagement/Images/ ;;
+      text/* | application/pdf) mv "$file" ~/FileManagement/Documents/ ;;
+      audio/*) mv "$file" ~/FileManagement/Audio/ ;;
+      video/*) mv "$file" ~/FileManagement/Videos/ ;;
+      *) mv "$file" ~/FileManagement/Others/ ;;
+    esac
+  fi
+done
